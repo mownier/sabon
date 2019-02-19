@@ -43,7 +43,7 @@ public func soapFault(code: String = "", string: String = "", detail: String = "
 
 func toSoapFault(from info: [String: Any]) -> SoapFault {
     return info.filter { $0.key.lowercased().contains("fault") }
-        .flatMap { $0.value as? [String: String] }
+        .compactMap { $0.value as? [String: String] }
         .map {
             soapFault(
                 code: $0.valueOfIgnoredCaseKey("code"),
